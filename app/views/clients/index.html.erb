@@ -1,2 +1,9 @@
-<h1>Clients#index</h1>
-<p>Find me in app/views/clients/index.html.erb</p>
+<div>
+  <h1>This is clients page</h1>
+  <p>clients#index</p>
+  <%= link_to "Homepage", root_path %>
+</div>
+
+<% @clients.each do |clients| %>
+  <%= link_to "#{clients.name}", clients%>
+<% end %>
