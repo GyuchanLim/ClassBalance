@@ -1,4 +1,8 @@
-<%= @appointment.time %>
-<% @appointment.clients.each do |client| %>
-  <%= link_to "#{client.name}", client%>
-<% end %>
+<%= link_to "homepage", root_path%>
+
+<div>
+  <%= @appointment.time %>
+  <% @appointment.clients.each do |client| %>
+    <%= link_to "#{client.name}", client%>
+  <% end %>
+</div>

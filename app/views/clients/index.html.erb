@@ -4,6 +4,8 @@
   <%= link_to "Homepage", root_path %>
 </div>
 
+<%= link_to "New clients!", new_client_path %>
+
 <% @clients.each do |clients| %>
   <%= link_to "#{clients.name}", clients%>
 <% end %>
