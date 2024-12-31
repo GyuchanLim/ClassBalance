@@ -23,6 +23,14 @@ class AppointmentsController < ApplicationController
     @appointment.add_clients_to_appointment(cleaned_up_clients_list) unless cleaned_up_clients_list.nil?
     # TODO - Functionality
     # Allow adding of clients from create method
+    num_fields = params[:num_fields]  # The selected number of fields
+    fields = params.slice(*params.keys.select { |key| key.start_with?('field_') })
+
+    # Process the data as needed
+    # For example, logging the fields:
+    Rails.logger.info "Number of fields: #{num_fields}"
+    Rails.logger.info "Submitted fields: #{fields}"
+
     if @appointment.save
       redirect_to @appointment
     else

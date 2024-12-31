@@ -18,3 +18,60 @@
 <% end %>
 
 <%= link_to "Back", appointments_path %>
+
+<%= form_with model: @appointment do |f| %>
+  <h3>Select Number of Text Fields</h3>
+
+  <div>
+    <%= f.radio_button :num_fields, 1, id: "one_fields" %>
+    <%= f.label :num_fields_1, '1' %>
+
+    <%= f.radio_button :num_fields, 2, id: "two_fields" %>
+    <%= f.label :num_fields_2, '2' %>
+
+    <%= f.radio_button :num_fields, 3, id: "three_fields" %>
+    <%= f.label :num_fields_3, '3' %>
+  </div>
+
+  <div id="fields_container">
+    <!-- Text fields will be dynamically inserted here -->
+  </div>
+
+  <%= f.submit 'Submit' %>
+<% end %>
+
+<script>
+  // Function to update the number of text fields based on selected radio button
+  document.addEventListener("DOMContentLoaded", function() {
+    const fieldsContainer = document.getElementById("fields_container");
+
+    // Function to update fields based on the selected radio button
+    function updateFields() {
+      debugger
+      // Get the selected number of fields
+      const numFields = document.querySelector('input[name="num_fields"]:checked')?.value;
+      fieldsContainer.innerHTML = ''; // Clear the container before adding new fields
+
+      if (numFields) {
+        for (let i = 0; i < numFields; i++) {
+          const input = document.createElement("input");
+          input.type = "text";
+          input.name = `field_${i + 1}`;
+          input.placeholder = `Field ${i + 1}`;
+          fieldsContainer.appendChild(input);
+          fieldsContainer.appendChild(document.createElement("br"));
+        }
+      }
+    }
+
+    // Event listener for radio button changes
+    document.querySelectorAll('input[name="num_fields"]').forEach(function(radio) {
+      debugger
+      radio.addEventListener('change', updateFields);
+    });
+
+    // Initialize the fields based on the current radio button selection (if any)
+    updateFields();
+  });
+</script>
+
