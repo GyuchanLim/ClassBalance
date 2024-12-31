@@ -16,6 +16,7 @@ class AppointmentsController < ApplicationController
 
   def new
     @appointment = Appointment.new
+    @client_list = Client::List.new.fetch_active
   end
 
   def create
