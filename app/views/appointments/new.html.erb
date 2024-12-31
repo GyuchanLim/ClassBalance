@@ -1,5 +1,8 @@
 <h1>New appointment</h1>
 
+<%# TODO - Cleanup %>
+<%# Too dirty %>
+
 <%= form_with model: @appointment do |form| %>
   <div>
     <%= form.label :time %>
@@ -22,7 +25,7 @@
 <%= form_with model: @appointment do |f| %>
   <h3>Select Number of Text Fields</h3>
 
-  <div>
+  <div class="number_of_client_selector":>
     <%= f.radio_button :num_fields, 1, id: "one_fields" %>
     <%= f.label :num_fields_1, '1' %>
 
@@ -47,26 +50,33 @@
 
     // Function to update fields based on the selected radio button
     function updateFields() {
-      debugger
-      // Get the selected number of fields
-      const numFields = document.querySelector('input[name="num_fields"]:checked')?.value;
-      fieldsContainer.innerHTML = ''; // Clear the container before adding new fields
+      const radio1 = document.querySelector('#one_fields');
+      const radio2 = document.querySelector('#two_fields');
+      const radio3 = document.querySelector('#three_fields');
 
-      if (numFields) {
-        for (let i = 0; i < numFields; i++) {
-          const input = document.createElement("input");
-          input.type = "text";
-          input.name = `field_${i + 1}`;
-          input.placeholder = `Field ${i + 1}`;
-          fieldsContainer.appendChild(input);
-          fieldsContainer.appendChild(document.createElement("br"));
-        }
+      // Add event listeners to detect changes
+
+      function insertMessage(radioNumber) {
+        const newDiv = document.createElement('div');
+        newDiv.textContent = `Hello I am radio button #${radioNumber}`;
+        fieldsContainer.appendChild(newDiv);
       }
+
+      radio1.addEventListener('change', () => {
+        insertMessage(1);
+      });
+
+      radio2.addEventListener('change', () => {
+        insertMessage(2);
+      });
+
+      radio3.addEventListener('change', () => {
+        insertMessage(3);
+      });
     }
 
     // Event listener for radio button changes
     document.querySelectorAll('input[name="num_fields"]').forEach(function(radio) {
-      debugger
       radio.addEventListener('change', updateFields);
     });
 

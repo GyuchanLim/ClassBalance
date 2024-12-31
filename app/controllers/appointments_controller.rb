@@ -15,7 +15,6 @@ class AppointmentsController < ApplicationController
 
   def new
     @appointment = Appointment.new
-    @client_list = Client::List.new.fetch_active
   end
 
   def create
@@ -34,6 +33,10 @@ class AppointmentsController < ApplicationController
     if @appointment.save
       redirect_to @appointment
     else
+      # TODO - Usability
+      # At the moment it renders new page with no message.
+      # Will need to show user why creating appointment failed
+
       render :new, status: :unprocessable_entity
     end
   end
