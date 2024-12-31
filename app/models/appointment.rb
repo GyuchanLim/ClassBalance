@@ -10,6 +10,12 @@ class Appointment < ApplicationRecord
     self.time.strftime("%Y-%m-%d %H:%M")
   end
 
+  def add_clients_to_appointment(cleaned_up_clients_list)
+    cleaned_up_clients_list.as_json.values.uniq.compact.each do |client_id|
+      self.clients << Client.find(client_id)
+    end
+  end
+
   def remove_client(client)
     self.clients.delete(client)
   end

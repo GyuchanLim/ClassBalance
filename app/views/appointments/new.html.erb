@@ -6,8 +6,11 @@
     <%= form.datetime_field :time %>
   </div>
 
-  <%# TODO - Functionality %>
-  <%# Allow adding clients from new page %>
+  <div>
+    <%= form.collection_select :client_1, @client_list.order(:name), :id, :name %>
+    <%= form.collection_select :client_2, @client_list.order(:name), :id, :name %>
+    <%= form.collection_select :client_3, @client_list.order(:name), :id, :name %>
+  </div>
 
   <div>
     <%= form.submit %>

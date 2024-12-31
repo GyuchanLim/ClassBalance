@@ -15,11 +15,12 @@ class AppointmentsController < ApplicationController
 
   def new
     @appointment = Appointment.new
+    @client_list = Client::List.new.fetch_active
   end
 
   def create
     @appointment = Appointment.new(appointment_params)
-
+    @appointment.add_clients_to_appointment(cleaned_up_clients_list) unless cleaned_up_clients_list.nil?
     # TODO - Functionality
     # Allow adding of clients from create method
     if @appointment.save
@@ -75,5 +76,9 @@ class AppointmentsController < ApplicationController
 
   def appointment_params
     params.expect(appointment: [ :time ])
+  end
+
+  def cleaned_up_clients_list
+    params.expect(appointment: [ :client_1, :client_2, :client_3 ])
   end
 end
