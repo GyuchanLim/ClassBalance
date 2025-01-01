@@ -18,10 +18,10 @@
   <% @client.appointments.each do |appointment| %>
     <div>
       <%= appointment.present %>
-      <%= link_to "edit", edit_appointment_path(appointment)%>
+      <%= link_to "edit", modify_appointment_client_appointment_path(appointment)%>
       <%# TODO - FUNCTIONALITY %>
       <%# implement remove appointment functionality %>
-      <%= link_to "remove", edit_appointment_path(appointment)%>
+      <%= link_to "remove", remove_appointment_client_appointment_path(appointment)%>
     </div>
   <% end %>
 <% end %>

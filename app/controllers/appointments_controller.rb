@@ -1,4 +1,10 @@
 class AppointmentsController < ApplicationController
+  before_action :client_list, only: [ :new, :create ]
+  before_action :client_appointment, only: [ :modify_appointment, :remove_appointment ]
+
+  # TODO - CLEANUP
+  # attr_reader :appointment, :client
+
   def index
     @appointments = Appointment.all
   end
@@ -40,7 +46,30 @@ class AppointmentsController < ApplicationController
     end
   end
 
+  # TODO - Usablity
+  # Allow removal of appointment for a client
+  # This may mean changing the name of below method
+
+  # TODO - Functionality
+  # Allow removal of appointment
+  def remove_appointment
+    redirect_to @appointment
+  end
+
+  def modify_appointment
+    Appointment::RemoveClient.new(@client, @appointment).call
+  end
+
   private
+
+  def client_appointment
+    @client = Client.find(params[:client_id])
+    @appointment = Appointment.find(params[:id])
+  end
+
+  def client_list
+    @client_list = Client::List.new.fetch_active
+  end
 
   def appointment_params
     params.expect(appointment: [ :time ])

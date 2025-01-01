@@ -1,6 +1,15 @@
 Rails.application.routes.draw do
   resources :clients
   resources :appointments
+
+  resources :clients do
+    resources :appointments, only: [] do
+      member do
+        get :remove_appointment
+        get :modify_appointment
+      end
+    end
+  end
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
