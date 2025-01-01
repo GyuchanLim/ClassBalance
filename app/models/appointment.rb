@@ -9,4 +9,8 @@ class Appointment < ApplicationRecord
   def present
     self.time.strftime("%Y-%m-%d %H:%M")
   end
+
+  def remove_client(client)
+    self.clients.delete(client)
+  end
 end

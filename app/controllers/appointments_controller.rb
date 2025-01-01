@@ -53,18 +53,20 @@ class AppointmentsController < ApplicationController
   # TODO - Functionality
   # Allow removal of appointment
   def remove_appointment
-    redirect_to @appointment
+    remove_client_result = Appointment::RemoveClient.new(@client, @appointment).call
+
+    redirect_to @client
   end
 
   def modify_appointment
-    Appointment::RemoveClient.new(@client, @appointment).call
+    Appointment::ModifyClient.new(@client, @appointment).call
   end
 
   private
 
   def client_appointment
-    @client = Client.find(params[:client_id])
-    @appointment = Appointment.find(params[:id])
+    @client = Client.find(params[:id])
+    @appointment = Appointment.find(params[:appointment_id])
   end
 
   def client_list

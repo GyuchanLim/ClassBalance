@@ -8,7 +8,11 @@ class Appointment
     end
 
     def call
-      debugger
+      if @client.appointments.include?(@appointment)
+        ServiceResult.new(@appointment.remove_client(@client))
+      else
+        ServiceResult.failure("unable to remove client #{@client.name} from #{@appointment.present}")
+      end
     end
   end
 end

@@ -1,6 +1,8 @@
 # Service result concern
 
 class ServiceResult
+  attr_reader :value, :errors
+
   def initialize(was_successful, value: nil, errors: {})
     @was_successful = was_successful
     @value = value
