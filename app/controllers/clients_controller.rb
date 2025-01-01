@@ -21,7 +21,19 @@ class ClientsController < ApplicationController
     end
   end
 
+  def edit
+    @client = Client.find(params[:id])
+  end
+
   def update
+    @client = Client.find(params[:id])
+    @client.update(client_params)
+
+    if @client.save
+      redirect_to @client
+    else
+      render :edit, status: :unprocessable_entity
+    end
   end
 
   private

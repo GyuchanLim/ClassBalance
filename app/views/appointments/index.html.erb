@@ -4,8 +4,12 @@
   <%= link_to "Homepage", root_path %>
 </div>
 
-<%= link_to "New appointments!", new_appointment_path %>
+<div>
+  <%= link_to "New appointments!", new_appointment_path %>
+</div>
 
 <% @appointments.each do |appointment| %>
-  <%= link_to "#{appointment.time}", appointment%>
+  <div>
+    <%= link_to "#{appointment.present}", appointment%>
+  </div>
 <% end %>

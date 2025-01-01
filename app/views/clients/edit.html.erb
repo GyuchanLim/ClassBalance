@@ -1,0 +1,33 @@
+<h1>Edit client</h1>
+
+<%= form_with model: @client do |form| %>
+  <div>
+    <%= form.label :name %>
+    <%= form.text_field :name %>
+  </div>
+	<div>
+    <%= form.label :email %>
+    <%= form.text_field :email %>
+  </div>
+	<div>
+    <%= form.label :phone_number %>
+    <%= form.number_field :phone_number %>
+  </div>
+	<div>
+        <%# TODO - Usability %>
+        <%# Change this to age_range %>
+    <%= form.label :age %>
+    <%= form.number_field :age %>
+  </div>
+
+	<div>
+    <%= form.label :description %>
+    <%= form.text_area :description %>
+  </div>
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>
+
+<%= link_to "Back", client_path %>

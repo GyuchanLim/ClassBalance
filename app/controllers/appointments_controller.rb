@@ -16,7 +16,6 @@ class AppointmentsController < ApplicationController
 
     # TODO - Functionality
     # Allow adding of clients from create method
-  
     if @appointment.save
       redirect_to @appointment
     else
@@ -24,7 +23,21 @@ class AppointmentsController < ApplicationController
     end
   end
 
+  def edit
+    @appointment = Appointment.find(params[:id])
+  end
+
   def update
+    @appointment = Appointment.find(params[:id])
+    @appointment.update(appointment_params)
+
+    # TODO - Functionality
+    # Allow adding of clients from create method
+    if @appointment.save
+      redirect_to @appointment
+    else
+      render :edit, status: :unprocessable_entity
+    end
   end
 
   private

@@ -1,0 +1,14 @@
+<h1>Edit appointment</h1>
+
+<%= form_with model: @appointment do |form| %>
+  <div>
+    <%= form.label :time %>
+    <%= form.datetime_field :time %>
+  </div>
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>
+
+<%= link_to "Back", appointments_path %>

@@ -1,5 +1,27 @@
-<%= @client.name %>
-<%= @client.email %>
-<%= @client.age %>
-<%= @client.phone_number %>
-<%= @client.description %>
+<div>
+  <%= link_to "clients", clients_path %>
+</div>
+
+<div>
+  <%= @client.name %>
+  <%= @client.email %>
+  <%= @client.age %>
+  <%= @client.phone_number %>
+  <%= @client.description %>
+</div>
+
+<div>
+  <%= link_to "edit client", edit_client_path %>
+</div>
+
+<% unless @client.appointments.nil? %>
+  <% @client.appointments.each do |appointment| %>
+    <div>
+      <%= appointment.present %>
+      <%= link_to "edit", edit_appointment_path(appointment)%>
+      <%# TODO - FUNCTIONALITY %>
+      <%# implement remove appointment functionality %>
+      <%= link_to "remove", edit_appointment_path(appointment)%>
+    </div>
+  <% end %>
+<% end %>
