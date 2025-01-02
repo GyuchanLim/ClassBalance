@@ -1,5 +1,7 @@
 class AppointmentsController < ApplicationController
-  before_action :active_client_list, only: [ :new, :create ]
+  before_action :active_client_list, only: [ :new, :edit ]
+  before_action :appointment, only: [ :show, :edit, :update ]
+  before_action :enrolled_client_list, only: [ :edit ]
   before_action :client_appointment, only: [ :modify_appointment, :remove_appointment ]
 
   # TODO - CLEANUP
@@ -10,7 +12,6 @@ class AppointmentsController < ApplicationController
   end
 
   def show
-    @appointment = Appointment.find(params[:id])
   end
 
   def new
@@ -33,15 +34,12 @@ class AppointmentsController < ApplicationController
   end
 
   def edit
-    @appointment = Appointment.find(params[:id])
   end
 
   def update
-    @appointment = Appointment.find(params[:id])
     @appointment.update(appointment_params)
+    @appointment.enroll(submitted_clients) unless submitted_clients.nil?
 
-    # TODO - Functionality
-    # Allow adding of clients from create method
     if @appointment.save
       redirect_to @appointment
     else
@@ -61,6 +59,10 @@ class AppointmentsController < ApplicationController
 
   private
 
+  def appointment
+    @appointment = Appointment.find(params[:id])
+  end
+
   def client_appointment
     @client = Client.find(params[:id])
     @appointment = Appointment.find(params[:appointment_id])
@@ -68,6 +70,10 @@ class AppointmentsController < ApplicationController
 
   def active_client_list
     @active_client_list = Client::List.new.fetch_active
+  end
+
+  def enrolled_client_list
+    @enrolled_client_list = @appointment.clients
   end
 
   def appointment_params

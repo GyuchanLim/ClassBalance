@@ -7,6 +7,17 @@
   </div>
 
   <div>
+    <% (0..2).each do |pos| %>
+      <% @customer = @enrolled_client_list.offset(pos).limit(1).first %>
+      <%= form.collection_select "client_#{pos+1}",
+        @active_client_list.order(:name), :id, :name, 
+        include_blank: true, 
+        selected: @customer.nil? ? nil : @customer.id
+      %>
+    <% end %>
+  </div>
+
+  <div>
     <%= form.submit %>
   </div>
 <% end %>

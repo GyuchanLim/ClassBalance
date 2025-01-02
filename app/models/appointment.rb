@@ -14,9 +14,7 @@ class Appointment < ApplicationRecord
   end
 
   def enroll(client_ids)
-    client_ids.each do |client_id|
-      self.clients << Client.find(client_id)
-    end
+    self.clients = client_ids.map { |client_id| Client.find(client_id) }
   end
 
   def remove_client(client)
