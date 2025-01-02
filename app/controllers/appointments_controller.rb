@@ -1,5 +1,5 @@
 class AppointmentsController < ApplicationController
-  before_action :client_list, only: [ :new, :create ]
+  before_action :active_client_list, only: [ :new, :create ]
   before_action :client_appointment, only: [ :modify_appointment, :remove_appointment ]
 
   # TODO - CLEANUP
@@ -19,16 +19,7 @@ class AppointmentsController < ApplicationController
 
   def create
     @appointment = Appointment.new(appointment_params)
-    @appointment.add_clients_to_appointment(cleaned_up_clients_list) unless cleaned_up_clients_list.nil?
-    # TODO - Functionality
-    # Allow adding of clients from create method
-    num_fields = params[:num_fields]  # The selected number of fields
-    fields = params.slice(*params.keys.select { |key| key.start_with?('field_') })
-
-    # Process the data as needed
-    # For example, logging the fields:
-    Rails.logger.info "Number of fields: #{num_fields}"
-    Rails.logger.info "Submitted fields: #{fields}"
+    @appointment.enroll(submitted_clients) unless submitted_clients.nil?
 
     if @appointment.save
       redirect_to @appointment
@@ -58,12 +49,6 @@ class AppointmentsController < ApplicationController
     end
   end
 
-  # TODO - Usablity
-  # Allow removal of appointment for a client
-  # This may mean changing the name of below method
-
-  # TODO - Functionality
-  # Allow removal of appointment
   def remove_appointment
     remove_client_result = Appointment::RemoveClient.new(@client, @appointment).call
 
@@ -81,15 +66,16 @@ class AppointmentsController < ApplicationController
     @appointment = Appointment.find(params[:appointment_id])
   end
 
-  def client_list
-    @client_list = Client::List.new.fetch_active
+  def active_client_list
+    @active_client_list = Client::List.new.fetch_active
   end
 
   def appointment_params
     params.expect(appointment: [ :time ])
   end
 
-  def cleaned_up_clients_list
-    params.expect(appointment: [ :client_1, :client_2, :client_3 ])
+  def submitted_clients
+    client_params = params.expect(appointment: [ :client_1, :client_2, :client_3 ])
+    client_params.keys.map { |key| client_params[key].blank? ? nil : client_params[key] }.compact.uniq
   end
 end
