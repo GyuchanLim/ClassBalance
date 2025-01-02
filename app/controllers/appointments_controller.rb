@@ -54,6 +54,8 @@ class AppointmentsController < ApplicationController
   end
 
   def modify_appointment
+    # TODO - FUNCTIONALITY
+    # BROKEN PLEASE FIX.
     Appointment::ModifyClient.new(@client, @appointment).call
   end
 
