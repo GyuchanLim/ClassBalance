@@ -1,23 +1,46 @@
-<h1>New appointment</h1>
+<h1>Create New Appointment</h1>
 
-<%# TODO - Cleanup %>
-<%# Too dirty %>
-
-<%= form_with model: @appointment do |form| %>
-  <div>
-    <%= form.label :time %>
-    <%= form.datetime_field :time %>
+<%= form_with model: @appointment, class: 'appointment-form' do |form| %>
+  <div class="form-group">
+    <%= form.label :date, 'Appointment Date', class: 'label' %>
+    <%= form.date_field :date, class: 'input-field' %>
   </div>
 
-  <div>
-    <%= form.collection_select :client_1, @active_client_list.order(:name), :id, :name, include_blank: :true %>
-    <%= form.collection_select :client_2, @active_client_list.order(:name), :id, :name, include_blank: :true %>
-    <%= form.collection_select :client_3, @active_client_list.order(:name), :id, :name, include_blank: :true %>
+  <div class="form-group time-group">
+    <div class="time-field">
+      <%= form.label :hour, 'Hour', class: 'label' %>
+      <%= form.select :hour, (1..12).to_a.map { |h| [h.to_s.rjust(2, '0'), h] }, { include_blank: 'Select Hour' }, class: 'input-field' %>
+    </div>
+
+    <div class="time-field">
+      <%= form.label :minute, 'Minute', class: 'label' %>
+      <%= form.select :minute, (0..59).to_a.map { |m| [m.to_s.rjust(2, '0'), m] }, { include_blank: 'Select Minute' }, class: 'input-field' %>
+    </div>
+
+    <div class="time-field">
+      <%= form.label :am_pm, 'AM/PM', class: 'label' %>
+      <%= form.select :am_pm, [['AM', 'AM'], ['PM', 'PM']], { include_blank: 'Select AM/PM' }, class: 'input-field' %>
+    </div>
   </div>
 
-  <div>
-    <%= form.submit %>
+  <div class="form-group">
+    <%= form.label :client_1, 'Client 1', class: 'label' %>
+    <%= form.collection_select :client_1, @active_client_list.order(:name), :id, :name, { include_blank: 'Select Client' }, class: 'input-field' %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :client_2, 'Client 2', class: 'label' %>
+    <%= form.collection_select :client_2, @active_client_list.order(:name), :id, :name, { include_blank: 'Select Client' }, class: 'input-field' %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :client_3, 'Client 3', class: 'label' %>
+    <%= form.collection_select :client_3, @active_client_list.order(:name), :id, :name, { include_blank: 'Select Client' }, class: 'input-field' %>
+  </div>
+
+  <div class="form-group submit-group">
+    <%= form.submit 'Create Appointment', class: 'submit-btn' %>
   </div>
 <% end %>
 
-<%= link_to "Back", appointments_path %>
+<%= link_to 'Back to Appointments', appointments_path, class: 'back-link' %>
