@@ -20,7 +20,10 @@ class AppointmentsController < ApplicationController
   end
 
   def create
-    @appointment = Appointment.new(appointment_params)
+    datetime_string = "#{appointment_params['date']} #{appointment_params['hour']}:#{appointment_params['minute']}:00"
+    datetime = DateTime.parse(datetime_string)
+
+    @appointment = Appointment.new(time: datetime)
     @appointment.enroll(submitted_clients) unless submitted_clients.nil?
 
     if @appointment.save
@@ -80,11 +83,10 @@ class AppointmentsController < ApplicationController
   end
 
   def appointment_params
-    params.expect(appointment: [ :time ])
+    params.expect(appointment: [ :date, :hour, :minute ])
   end
 
   def submitted_clients
-    client_params = params.expect(appointment: [ :client_1, :client_2, :client_3 ])
-    client_params.keys.map { |key| client_params[key].blank? ? nil : client_params[key] }.compact.uniq
+    params["appointment"].select { |key, value| key.start_with?("client_") && value.present? }.values
   end
 end

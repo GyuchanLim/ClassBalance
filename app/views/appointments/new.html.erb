@@ -9,33 +9,38 @@
   <div class="form-group time-group">
     <div class="time-field">
       <%= form.label :hour, 'Hour', class: 'label' %>
-      <%= form.select :hour, (1..12).to_a.map { |h| [h.to_s.rjust(2, '0'), h] }, { include_blank: 'Select Hour' }, class: 'input-field' %>
-    </div>
-
-    <div class="time-field">
-      <%= form.label :minute, 'Minute', class: 'label' %>
-      <%= form.select :minute, (0..59).to_a.map { |m| [m.to_s.rjust(2, '0'), m] }, { include_blank: 'Select Minute' }, class: 'input-field' %>
+      <%= form.select :hour, ([12] + (1..11).to_a).map { |h| [h, h] }, { include_blank: false }, class: 'input-field' %>
     </div>
 
     <div class="time-field">
       <%= form.label :am_pm, 'AM/PM', class: 'label' %>
-      <%= form.select :am_pm, [['AM', 'AM'], ['PM', 'PM']], { include_blank: 'Select AM/PM' }, class: 'input-field' %>
+      <%= form.select :am_pm, [['AM', 'AM'], ['PM', 'PM']], { include_blank: false }, class: 'input-field' %>
+    </div>
+
+    <div class="time-field">
+      <%= form.label :minute, 'Minute', class: 'label' %>
+      <%= form.select :minute, (0..11).to_a.map { |m| [m*5, m] }, { include_blank: false }, class: 'input-field' %>
     </div>
   </div>
 
-  <div class="form-group">
-    <%= form.label :client_1, 'Client 1', class: 'label' %>
-    <%= form.collection_select :client_1, @active_client_list.order(:name), :id, :name, { include_blank: 'Select Client' }, class: 'input-field' %>
-  </div>
+  <div class="form-group clients">
+    <%= form.label :clients, 'Clients', class: 'label' %>
 
-  <div class="form-group">
-    <%= form.label :client_2, 'Client 2', class: 'label' %>
-    <%= form.collection_select :client_2, @active_client_list.order(:name), :id, :name, { include_blank: 'Select Client' }, class: 'input-field' %>
-  </div>
+    <!-- Container for dynamic client fields -->
+    <div id="client_fields">
+      <!-- Initial client fields will be here -->
+    </div>
 
-  <div class="form-group">
-    <%= form.label :client_3, 'Client 3', class: 'label' %>
-    <%= form.collection_select :client_3, @active_client_list.order(:name), :id, :name, { include_blank: 'Select Client' }, class: 'input-field' %>
+    <!-- Hidden template for new client fields -->
+    <div id="client_template" style="display: none;">
+      <div class="client-row">
+        <%= form.collection_select :client_template, @active_client_list.order(:name), :id, :name, { include_blank: 'Select Client' }, class: 'input-field' %>
+        <button type="button" class="remove-client-btn">Remove</button>
+      </div>
+    </div>
+
+    <!-- Add Client Button -->
+    <%= link_to 'Add Client', '#', id: 'add_client_button', class: 'btn btn-primary' %>
   </div>
 
   <div class="form-group submit-group">
@@ -44,3 +49,41 @@
 <% end %>
 
 <%= link_to 'Back to Appointments', appointments_path, class: 'back-link' %>
+
+<!-- JavaScript to handle dynamic client fields -->
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const addClientButton = document.getElementById('add_client_button');
+    const clientFieldsContainer = document.getElementById('client_fields');
+    const clientTemplate = document.getElementById('client_template');
+    let clientCount = 0; // Starting client count (we already have client_1)
+
+    // Add client event
+    addClientButton.addEventListener('click', function(event) {
+      event.preventDefault(); // Prevent the link from navigating
+
+      clientCount++; // Increment client counter
+
+      // Clone the client template
+      const newClientField = clientTemplate.cloneNode(true);
+      
+      // Modify the ID and name attributes to reflect the new client (client_2, client_3, etc.)
+      const newSelect = newClientField.querySelector('select');
+      newSelect.name = `appointment[client_${clientCount}]`;
+      newSelect.id = `appointment_client_${clientCount}`;
+
+      // Make the new client field visible by setting display to block
+      newClientField.style.display = 'block';
+
+      // Add remove button functionality
+      const removeButton = newClientField.querySelector('.remove-client-btn');
+      removeButton.addEventListener('click', function() {
+        newClientField.remove();
+        clientCount--; // Decrease client counter when a field is removed
+      });
+
+      // Append the new client field to the container
+      clientFieldsContainer.appendChild(newClientField);
+    });
+  });
+</script>
