@@ -1,0 +1,51 @@
+<%= form_with model: @appointment, class: 'appointment-form' do |form| %>
+  <div class="form-group">
+    <%= form.label :date, 'Appointment Date', class: 'label' %>
+    <%= form.date_field :date, class: 'input-field' %>
+  </div>
+
+  <div class="form-group datetime-group">
+    <div class="datetime-field">
+      <%= form.label :hour, 'Hour', class: 'label' %>
+      <%= form.select :hour, ([12] + (1..11).to_a).map { |h| [h, h] }, { include_blank: false }, class: 'input-field' %>
+    </div>
+
+    <div class="datetime-field">
+      <%= form.label :am_pm, 'AM/PM', class: 'label' %>
+      <%= form.select :am_pm, [['AM', 'AM'], ['PM', 'PM']], { include_blank: false }, class: 'input-field' %>
+    </div>
+
+    <div class="datetime-field">
+      <%= form.label :minute, 'Minute', class: 'label' %>
+      <%= form.select :minute, (0..11).to_a.map { |m| [m*5, m] }, { include_blank: false }, class: 'input-field' %>
+    </div>
+  </div>
+
+  <div class="form-group clients">
+    <%= form.label :clients, 'Clients', class: 'label' %>
+
+    <!-- Container for dynamic client fields -->
+    <div id="client_fields">
+      <!-- Initial client fields will be here -->
+    </div>
+
+    <!-- Hidden template for new client fields -->
+    <div id="client_template" style="display: none;">
+      <div class="client-row">
+        <%= form.collection_select :client_template, @active_client_list.order(:name), :id, :name, { include_blank: 'Select Client' }, class: 'input-field' %>
+        <button type="button" class="remove-client-btn">Remove</button>
+      </div>
+    </div>
+
+    <!-- Add Client Button -->
+    <%= link_to 'Add Client', '#', id: 'add_client_button', class: 'btn btn-primary' %>
+  </div>
+
+  <div class="form-group submit-group">
+    <% if @appointment_action == "new" %>
+      <%= form.submit 'Create Appointment', class: 'submit-btn' %>
+    <% else %>
+      <%= form.submit 'Update Appointment', class: 'submit-btn' %>
+    <% end %>
+  </div>
+<% end %>

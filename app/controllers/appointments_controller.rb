@@ -3,6 +3,7 @@ class AppointmentsController < ApplicationController
   before_action :appointment, only: [ :show, :edit, :update ]
   before_action :enrolled_client_list, only: [ :edit ]
   before_action :client_appointment, only: [ :modify_appointment, :remove_appointment ]
+  before_action :appointment_action, only: [ :new, :edit ]
 
   # TODO - CLEANUP
   # attr_reader :appointment, :client
@@ -88,5 +89,9 @@ class AppointmentsController < ApplicationController
 
   def submitted_clients
     params["appointment"].select { |key, value| key.start_with?("client_") && value.present? }.values
+  end
+
+  def appointment_action
+    @appointment_action ||= self.action_name
   end
 end
