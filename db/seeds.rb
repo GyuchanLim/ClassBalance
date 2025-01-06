@@ -13,11 +13,11 @@ Client.create(name: "Grace Feng", email: "gracef1119@gmail.com", phone_number: "
 Client.create(name: "Mocha", email: "mocha@cutedoggies.com", phone_number: "123", age: "1", description: "This is dummy text")
 Client.create(name: "Jihoon Sung", email: "jdogg@geemail.com", phone_number: "0212345678", age: "27", description: "This is dummy text")
 
-Appointment.create(time: Time.new(2024, 12, 30, 12))
-Appointment.create(time: Time.new(2024, 12, 30, 13))
-Appointment.create(time: Time.new(2024, 12, 30, 14))
-Appointment.create(time: Time.new(2024, 12, 30, 15))
-Appointment.create(time: Time.new(2024, 12, 30, 16))
+Appointment.create(datetime: Time.new(2024, 12, 30, 12))
+Appointment.create(datetime: Time.new(2024, 12, 30, 13))
+Appointment.create(datetime: Time.new(2024, 12, 30, 14))
+Appointment.create(datetime: Time.new(2024, 12, 30, 15))
+Appointment.create(datetime: Time.new(2024, 12, 30, 16))
 
 Client.find(1).appointments << Appointment.find(1)
 Client.find(1).appointments << Appointment.find(2)

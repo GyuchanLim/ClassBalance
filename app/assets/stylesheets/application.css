@@ -122,3 +122,17 @@ h1 {
 .client-row .input-field {
   flex-grow: 1;  /* Make the input field take up remaining space */
 }
+
+.datetime-group {
+  display: flex;
+  gap: 16px; /* Space between the fields */
+  align-items: center; /* Align items vertically in the center */
+}
+
+.datetime-field {
+  flex: 1; /* Allow the fields to grow and take up equal space */
+}
+
+.datetime-field label {
+  display: block; /* Make sure labels are stacked above the fields */
+}

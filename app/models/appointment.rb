@@ -1,16 +1,12 @@
 class Appointment < ApplicationRecord
-  # TODO - Usability
-  # Separate time column to date and time columns
-  # This allows user to fix to a certain year or months
-
   # TODO - Functionality
-  # Restrict creating appointment with same date and time
+  # Restrict creating appointment with same datetime
 
-  validates :time, presence: :true
+  validates :datetime, presence: :true
   has_and_belongs_to_many :clients
 
   def present
-    self.time.strftime("%Y-%m-%d %H:%M")
+    self.datetime.strftime("%Y-%m-%d %H:%M")
   end
 
   def enroll(client_ids)

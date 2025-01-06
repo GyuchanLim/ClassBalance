@@ -23,7 +23,7 @@ class AppointmentsController < ApplicationController
     datetime_string = "#{appointment_params['date']} #{appointment_params['hour']}:#{appointment_params['minute']}:00"
     datetime = DateTime.parse(datetime_string)
 
-    @appointment = Appointment.new(time: datetime)
+    @appointment = Appointment.new(datetime: datetime)
     @appointment.enroll(submitted_clients) unless submitted_clients.nil?
 
     if @appointment.save
