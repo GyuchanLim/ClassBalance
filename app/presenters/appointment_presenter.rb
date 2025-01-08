@@ -6,6 +6,7 @@ class AppointmentPresenter
 
     {
       datetime: datetime,
+      date: datetime.to_date,
       year: datetime.year,
       month: datetime.month,
       day: datetime.day,

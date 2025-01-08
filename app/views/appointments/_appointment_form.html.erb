@@ -19,7 +19,7 @@
                 @active_client_list.order(:name), :id, :name,
                 { selected: client.nil? ? nil : client.id, include_blank: 'Select Client' }, class: 'input-field' 
               %>
-            <button type="button" class="remove-client-btn">Remove</button>
+              <button type="button" class="remove-client-btn">Remove</button>
             </div>
           </div>
         <% end %>

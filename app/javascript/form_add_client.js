@@ -2,7 +2,22 @@ document.addEventListener('DOMContentLoaded', function () {
   const addClientButton = document.getElementById('add_client_button');
   const clientFieldsContainer = document.getElementById('client_fields');
   const clientTemplate = document.getElementById('client_template');
-  let clientCount = 0; // Starting client count (we already have client_1)
+  let clientCount = document.querySelectorAll('[id^="client_"]').length; // Count existing client fields
+  const removeButtons = document.querySelectorAll('.remove-client-btn'); // To handle removing existing client fields
+
+  // Function to handle removing the client field
+  function removeClientField(event) {
+    const clientRow = event.target.closest('.client-row'); // Find the closest client-row
+    if (clientRow) {
+      clientRow.remove();
+      clientCount--; // Decrease the client count
+    }
+  }
+
+  // Add event listeners to already existing "Remove" buttons
+  removeButtons.forEach(button => {
+    button.addEventListener('click', removeClientField);
+  });
 
   // Add client event
   addClientButton.addEventListener('click', function(event) {
@@ -21,12 +36,9 @@ document.addEventListener('DOMContentLoaded', function () {
     // Make the new client field visible by setting display to block
     newClientField.style.display = 'block';
 
-    // Add remove button functionality
+    // Add remove button functionality for the new client
     const removeButton = newClientField.querySelector('.remove-client-btn');
-    removeButton.addEventListener('click', function() {
-      newClientField.remove();
-      clientCount--; // Decrease client counter when a field is removed
-    });
+    removeButton.addEventListener('click', removeClientField);
 
     // Append the new client field to the container
     clientFieldsContainer.appendChild(newClientField);
