@@ -5,7 +5,7 @@ class Appointment < ApplicationRecord
   validates :datetime, presence: :true
   has_and_belongs_to_many :clients
 
-  def present
+  def to_s
     self.datetime.strftime("%Y-%m-%d %H:%M")
   end
 

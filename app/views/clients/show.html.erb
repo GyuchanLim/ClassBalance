@@ -17,7 +17,7 @@
 <% unless @client.appointments.nil? %>
   <% @client.appointments.each do |appointment| %>
     <div>
-      <%= appointment.present %>
+      <%= appointment.to_s %>
       <%= link_to "edit", modify_appointment_client_appointment_path(appointment)%>
       <%# TODO - FUNCTIONALITY %>
       <%# implement remove appointment functionality %>

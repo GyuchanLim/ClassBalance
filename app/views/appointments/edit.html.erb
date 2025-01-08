@@ -1,25 +1,5 @@
+<%= javascript_include_tag 'form_add_client' %>
+
 <h1>Edit appointment</h1>
-
-<%= form_with model: @appointment do |form| %>
-  <div>
-    <%= form.label :time %>
-    <%= form.datetime_field :time %>
-  </div>
-
-  <div>
-    <% (0..2).each do |pos| %>
-      <% @customer = @enrolled_client_list.offset(pos).limit(1).first %>
-      <%= form.collection_select "client_#{pos+1}",
-        @active_client_list.order(:name), :id, :name, 
-        include_blank: true, 
-        selected: @customer.nil? ? nil : @customer.id
-      %>
-    <% end %>
-  </div>
-
-  <div>
-    <%= form.submit %>
-  </div>
-<% end %>
-
-<%= link_to "Back", appointments_path %>
+<%= render "appointment_form", action: "edit" %>
+<%= link_to "Back to appointment", appointments_path, class: 'back-link' %>

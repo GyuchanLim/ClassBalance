@@ -1,0 +1,24 @@
+<% presenter = AppointmentPresenter.present_appointment(appointment) %>
+
+<div class="form-group">
+  <%= form.label :date, 'Appointment Date', class: 'label' %>
+  <%# TODO - CHANGE MMDDYYYY -> DDMMYYYY %>
+  <%= form.date_field :date, value: presenter[:date], class: 'input-field' %>
+</div>
+
+<div class="form-group datetime-group">
+  <div class="datetime-field">
+    <%= form.label :hour, 'Hour', class: 'label' %>
+    <%= form.select :hour, ([12] + (1..11).to_a).map { |h| [h, h] }, { include_blank: false, selected: presenter[:hour] }, class: 'input-field' %>
+  </div>
+
+  <div class="datetime-field">
+    <%= form.label :am_pm, 'AM/PM', class: 'label' %>
+    <%= form.select :am_pm, [['AM', 'AM'], ['PM', 'PM']], { include_blank: false, selected: presenter[:am_pm] }, class: 'input-field' %>
+  </div>
+
+  <div class="datetime-field">
+    <%= form.label :minute, 'Minute', class: 'label' %>
+    <%= form.select :minute, (0..11).to_a.map { |m| [m*5, m*5] }, { include_blank: false, selected: presenter[:min] }, class: 'input-field' %>
+  </div>
+</div>
