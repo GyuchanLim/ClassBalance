@@ -27,12 +27,28 @@
     <!-- Container for dynamic client fields -->
     <div id="client_fields">
       <!-- Initial client fields will be here -->
+      <% if !@enrolled_client_list.nil?%>
+        <% @enrolled_client_list.each_with_index do |client, index| %>
+          <div id="client">
+            <div class="client-row">
+              <%= form.collection_select "client_#{index+1}",
+                @active_client_list.order(:name), :id, :name,
+                { selected: client.nil? ? nil : client.id, include_blank: 'Select Client' }, class: 'input-field' 
+              %>
+            <button type="button" class="remove-client-btn">Remove</button>
+            </div>
+          </div>
+        <% end %>
+      <% end %>
     </div>
 
     <!-- Hidden template for new client fields -->
     <div id="client_template" style="display: none;">
       <div class="client-row">
-        <%= form.collection_select :client_template, @active_client_list.order(:name), :id, :name, { include_blank: 'Select Client' }, class: 'input-field' %>
+        <%= form.collection_select :client_template,
+          @active_client_list.order(:name), :id, :name,
+          { include_blank: 'Select Client' }, class: 'input-field' 
+        %>
         <button type="button" class="remove-client-btn">Remove</button>
       </div>
     </div>
