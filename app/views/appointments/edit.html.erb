@@ -1,5 +1,5 @@
 <%= javascript_include_tag 'form_add_client' %>
 
 <h1>Edit appointment</h1>
-<%= render "appointment_form" %>
+<%= render "appointment_form", action: "edit" %>
 <%= link_to "Back to appointment", appointments_path, class: 'back-link' %>
