@@ -6,9 +6,8 @@ class CreateAppointments < ActiveRecord::Migration[8.0]
       t.timestamps
     end
 
-    # Adding has_and_belongs_to_many relationship between clients and appointsments
+    # Adding has_and_belongs_to_many relationship between clients and appointments
     create_table :appointments_clients, id: false do |t|
-      # creates foreign keys linking the join table to the `assemblies` and `parts` tables
       t.belongs_to :appointment
       t.belongs_to :client
     end

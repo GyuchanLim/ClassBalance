@@ -3,7 +3,7 @@
 </div>
 
 <div>
-  <%= @appointment.time %>
+  <%= @appointment.datetime %>
   <% @appointment.clients.each do |client| %>
     <%= link_to "#{client.name}", client%>
   <% end %>

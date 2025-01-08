@@ -1,10 +1,138 @@
-/*
- * This is a manifest file that'll be compiled into application.css.
- *
- * With Propshaft, assets are served efficiently without preprocessing steps. You can still include
- * application-wide styles in this file, but keep in mind that CSS precedence will follow the standard
- * cascading order, meaning styles declared later in the document or manifest will override earlier ones,
- * depending on specificity.
- *
- * Consider organizing styles into separate files for maintainability.
- */
+.appointment-form {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+  text-align: center;
+  font-family: 'Arial', sans-serif;
+  color: #333;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+.label {
+  display: block;
+  font-size: 14px;
+  color: #555;
+  margin-bottom: 5px;
+}
+
+.input-field {
+  width: 100%;
+  padding: 10px;
+  font-size: 14px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.input-field:focus {
+  border-color: #007bff;
+  outline: none;
+}
+
+.submit-btn {
+  width: 100%;
+  padding: 12px;
+  font-size: 16px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.submit-btn:hover {
+  background-color: #0056b3;
+}
+
+.submit-group {
+  text-align: center;
+}
+
+.back-link {
+  display: block;
+  text-align: center;
+  margin-top: 20px;
+  font-size: 14px;
+  color: #007bff;
+  text-decoration: none;
+}
+
+.back-link:hover {
+  text-decoration: underline;
+}
+
+/* Add space between client fields */
+.clients .form-group {
+  margin-bottom: 10px;
+}
+
+.clients #client_fields .form-group {
+  margin-top: 10px; /* Space between new client fields */
+}
+
+/* Style for the Add Client Button */
+#add_client_button {
+  display: block;
+  margin-top: 20px;
+  font-size: 14px;
+  color: #007bff;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+#add_client_button:hover {
+  text-decoration: underline;
+}
+
+/* Style the Remove Client Button */
+.remove-client-btn {
+  background-color: #e74c3c;
+  color: white;
+  font-size: 12px;
+  padding: 6px 12px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-left: 10px;  /* Space between client select and remove button */
+}
+
+.remove-client-btn:hover {
+  background-color: #c0392b;
+}
+
+.remove-client-btn:focus {
+  outline: none;
+}
+
+/* Flexbox for aligning client field and remove button on the same line */
+.client-row {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.client-row .input-field {
+  flex-grow: 1;  /* Make the input field take up remaining space */
+}
+
+.datetime-group {
+  display: flex;
+  gap: 16px; /* Space between the fields */
+  align-items: center; /* Align items vertically in the center */
+}
+
+.datetime-field {
+  flex: 1; /* Allow the fields to grow and take up equal space */
+}
+
+.datetime-field label {
+  display: block; /* Make sure labels are stacked above the fields */
+}

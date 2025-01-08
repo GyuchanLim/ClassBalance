@@ -10,6 +10,6 @@
 
 <% @appointments.each do |appointment| %>
   <div>
-    <%= link_to "#{appointment.present}", appointment%>
+    <%= link_to "#{appointment.to_s}", appointment%>
   </div>
 <% end %>
