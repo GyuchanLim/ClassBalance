@@ -8,10 +8,10 @@
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
 
-Client.create(name: "Gyuchan Lim", email: "gyuchaaan.lim@gmail.com", phone_number: "0226575883", age: "27", description: "This is dummy text")
-Client.create(name: "Grace Feng", email: "gracef1119@gmail.com", phone_number: "0210509251", age: "28", description: "This is dummy text")
+Client.create(name: "Gyuchan Lim", email: "gyuchaaan.lim@dummy.com", phone_number: "02123245613", age: "27", description: "This is dummy text")
+Client.create(name: "Grace Feng", email: "gracef1119@dummy.com", phone_number: "0215171054", age: "28", description: "This is dummy text")
 Client.create(name: "Mocha", email: "mocha@cutedoggies.com", phone_number: "123", age: "1", description: "This is dummy text")
-Client.create(name: "Jihoon Sung", email: "jdogg@geemail.com", phone_number: "0212345678", age: "27", description: "This is dummy text")
+Client.create(name: "Jihoon Sung", email: "jdogg@dummy.com", phone_number: "0212345678", age: "27", description: "This is dummy text")
 
 Appointment.create(datetime: Time.new(2024, 12, 30, 12))
 Appointment.create(datetime: Time.new(2024, 12, 30, 13))
